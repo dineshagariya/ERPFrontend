@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Login</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="container">
+	<div class="row">
+    	<div class="col-lg-12">
+        	<form action="http://10.11.19.19:9191/erp/upload" enctype="multipart/form-data" method="POST">
+            <div class="col-lg-4">
+            	<label>Category</label>
+                <select name="" id="cat">
+                	<option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Kids">Kids</option>
+                    <option value="Beauty">Beauty</option>
+                </select>
+            </div>
+            <div class="col-lg-4">
+            	<label>Subcategory</label>
+                <select name="" id="subcat" disabled="disabled">
+                </select>
+            </div>
+            <div class="col-lg-4">
+            	<label>Product Type</label>
+                <select name="" id="producttype" disabled="disabled">
+                </select>
+            </div>
+            </form>
+        </div>
+        <div class="col-lg-6">&nbsp;</div>
+    </div>
+</div>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script>
+$("#cat").change(function () {
+  var cat = $("#cat").value;
+  alert(cat);
+        ajaxObj = $.ajax({
+            url: 'http://10.11.19.19:9191/erp/getSubcat/'+cat,
+            type: 'GET', // You can use GET   
+            success: function (data) {
+                alert(data);              
+            },
+            error: function (request) {
+                $(".return-json").html("Some error!");
+            }
+        });
+});
+</script>
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+</body>
+</html>
+
+

@@ -2,8 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Login</title>
+<title>Seller Upload</title>
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -14,6 +16,7 @@
             <div class="col-lg-4">
             	<label>Category</label>
                 <select name="" id="cat">
+                	<option value="">Select a Category</option>
                 	<option value="Men">Men</option>
                     <option value="Women">Women</option>
                     <option value="Kids">Kids</option>
@@ -22,12 +25,13 @@
             </div>
             <div class="col-lg-4">
             	<label>Subcategory</label>
-                <select name="" id="subcat" disabled="disabled">
+                <select name="" id="subcat" disabled="true">
+                <option value="">Select a Subcategory</option>
                 </select>
             </div>
             <div class="col-lg-4">
             	<label>Product Type</label>
-                <select name="" id="producttype" disabled="disabled">
+                <select name="" id="producttype" disabled="true">
                 </select>
             </div>
             </form>
@@ -54,21 +58,6 @@
 </div>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script>
-$("#cat").change(function () {
-  var cat = $("#cat").value;
-  alert(cat);
-        ajaxObj = $.ajax({
-            url: 'http://10.11.19.19:9191/erp/getSubcat/'+cat,
-            type: 'GET', // You can use GET   
-            success: function (data) {
-                alert(data);              
-            },
-            error: function (request) {
-                $(".return-json").html("Some error!");
-            }
-        });
-});
-
     function ShowHideDiv() {
         var chkVertual = document.getElementById("chkVertual");
         var venderURL = document.getElementById("venderURL");
@@ -76,11 +65,53 @@ $("#cat").change(function () {
     }
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#cat").change(function(){
+		var cat = $("#cat").val();
+		$.ajax({
+            url: 'http://localhost:9191/erp/getSubcat/'+cat,
+            crossDomain: true,
+            type: 'GET',
+            success: function (data) {
+            	var subcat = data["value"]["Subcat"];
+            	$("#subcat").empty();
+            	$("#subcat").append("<option value=''>Select a Subcategory</option>");
+            	for(i=0;i<subcat.length;i++)
+            	{
+            		
+            		$('<option/>').val(subcat[i]).html(subcat[i]).appendTo('#subcat');
+            	}
+            	$( "#subcat" ).prop( "disabled", false );
+            	$( "#producttype" ).prop( "disabled", true );
 
+           	}
+        });
+	})
 
+	$("#subcat").change(function(){
+		var cat = $("#cat").val();
+		var subcat = $("#subcat").val();
+		$.ajax({
+            url: 'http://localhost:9191/erp/getProductType/'+cat+'/'+subcat,
+            crossDomain: true,
+            type: 'GET',
+            success: function (data) {
+            	var pt = data["value"]["PT"];
+            	$("#producttype").empty();
+            	$("#producttype").append("<option value=''>Select a Subcategory</option>");
+            	for(i=0;i<pt.length;i++)
+            	{
+            		$('<option/>').val(pt[i]).html(pt[i]).appendTo('#producttype');
+            	}
+            	$( "#producttype" ).prop( "disabled", false );
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
+           	}
+        });
+	})
+	
+});
+</script>
 </body>
 </html>
 

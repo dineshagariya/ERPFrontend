@@ -3,18 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Seller Upload</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
 
 <body>
-<div class="container">
+<header>
+	Seller Panel
+</header>
+<div class="container" style="min-height:450px">
 	<div class="row">
-    	<div class="col-lg-12">
+    	<div class="col-lg-12 pad-0">
             <div class="col-lg-4">
-            	<label>Category</label>
-                <select name="" id="cat">
+            	<label class="label">Category</label>
+                <select name="" id="cat" class="select">
                 	<option value="">Select a Category</option>
                 	<option value="Men">Men</option>
                     <option value="Women">Women</option>
@@ -23,49 +27,63 @@
                 </select>
             </div>
             <div class="col-lg-4">
-            	<label>Subcategory</label>
-                <select name="" id="subcat" disabled="true">
+            	<label class="label">Subcategory</label>
+                <select name="" class="select" id="subcat" disabled="true">
                 <option value="">Select a Subcategory</option>
                 </select>
             </div>
             <div class="col-lg-4">
-            	<label>Product Type</label>
-                <select name="" id="producttype" disabled="true">
+            	<label class="label">Product Type</label>
+                <select name="" class="select" id="producttype" disabled="true">
                 <option value="">Select a Subcategory</option>
                 </select>
             </div>
         </div>
         
         
-        
-        <div class="col-lg-12" id="uploadForm" style="display:none">
-        <hr />	
-		<form method="POST" enctype="multipart/form-data" action="http://10.11.19.19:9191/erp/upload" >
-		File to upload: <input type="file" name="file"><br /> 
-		ProductType: <input type="text" name="productType"><br /> <br /> 
-		VendorCode: <input type="text" name="vendorCode"><br /> <br />
-		<label for="chkReal">
-            <input type="radio" checked="checked" id="chkReal" name="chkImages" onclick="ShowHideDiv()" />
-                Real
-        </label>
-       	<label for="chkVirtual">
-            <input type="radio" id="chkVirtual" name="chkImages" onclick="ShowHideDiv()" />
-                Virtual
-        </label>
-        
-        <div id="vendorURL" style="display: none">
-                URL:
-                <input type="text" id="txtPassportNumber"  name="url" />
-        </div>
-        	<input type="submit" value="Upload">
-        	</form>
-        </div>
-    </div>
-</div>
-        </div>
-    </div>
-</div>
+        <form method="POST" enctype="multipart/form-data" action="http://10.11.19.19:9191/erp/upload" >
+        <div id="uploadForm" style="display:none">
+                <hr />	
 
+            <div class="col-lg-12 pad-0">
+                <div class="col-lg-4">
+                    <label class="label">ProductType: </label>
+                    <input type="text" name="productType" class="input">	
+                </div>
+                <div class="col-lg-8">&nbsp;</div>
+            </div>		
+		<!--ProductType: <input type="text" name="productType"><br /> <br /> 
+		VendorCode: <input type="text" name="vendorCode"><br /> <br />-->
+            <div class="col-lg-12 ">
+                <label for="chkReal">
+                    <input type="radio" checked="checked" id="chkReal" name="chkImages" onclick="ShowHideDiv()" />
+                        Real
+                </label>
+                <label for="chkVirtual">
+                    <input type="radio" id="chkVirtual" name="chkImages" onclick="ShowHideDiv()" />
+                        Virtual
+                </label>
+            </div>	    
+            <div class="col-lg-12 pad-0">
+            	<div class="col-lg-4">
+                    <div id="vendorURL" style="display: none">
+                            <label class="label">URL:</label>
+                            <input type="text" class="input" id="txtPassportNumber"  name="url" />
+                    </div>
+                    <br/>
+                    File to upload: <input type="file" name="file"><input type="submit" value="Upload">                
+                </div>
+                <div class="col-lg-8"></div>
+            </div>        
+        </div>
+        </form>
+	</div>
+</div>
+    
+
+<footer>
+	&copy; Exclusively Seller panel 2016
+</footer>
 <script>
     function ShowHideDiv() {
         var chkVirtual = document.getElementById("chkVirtual");

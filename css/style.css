@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{margin:0; padding:0; font-family:"ProximaNovaRegular";}
+@font-face {
+	font-family: 'proximanova-regular';
+	src: url('../fonts/proximanova-regular.eot');
+	src: url('../fonts/proximanova-regular?#iefix') format('embedded-opentype'), url('../fonts/proximanova-regular.woff2') format('woff2'), url('../fonts/proximanova-regular.woff') format('woff'), url('../fonts/proximanova-regular.ttf') format('truetype'), url('../fonts/proximanova-regular.svg') format('svg');
+
+}
+@font-face {
+  font-family: "ProximaNovaRegular";
+  src: url("../fonts/1539042/4d54327f-d317-4d88-bdac-1edbd6f9b677.eot?#iefix");
+  src: url("../fonts/1539042/4d54327f-d317-4d88-bdac-1edbd6f9b677.eot?#iefix") format("embedded-opentype"), url("../fonts/1539042/1bfff5fb-2540-4d1d-9f13-0afec7ba3c41.woff2") format("woff2"), url("../fonts/1539042/be2bfc33-e5c3-4b44-9c4d-3f1249e26a5a.woff") format("woff"), url("../fonts/1539042/a46943c3-227c-44d3-aa50-e5f87f7cec12.ttf") format("truetype");
+}
+
+
+header{
+	width:100%; margin-bottom:20px;
+	border-bottom:1px solid #CCC; padding:20px 0; font-size:24px; text-align:center; display:inline-block; text-transform:uppercase;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f7f7f7+100 */
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f7f7f7 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #ffffff 0%,#f7f7f7 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 ); /* IE6-9 */
+	
+}
+footer{
+		width:100%; margin-top:20px;
+	border-top:1px solid #CCC; padding:20px 0; font-size:14px; text-align:center; display:inline-block; text-transform:uppercase;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f7f7f7+100 */
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,ffffff+100 */
+background: #f7f7f7; /* Old browsers */
+background: -moz-linear-gradient(top,  #f7f7f7 0%, #ffffff 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #f7f7f7 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #f7f7f7 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+
+	}
+.label{
+	font-size:14px !important; color:#666 !important; width:100%; text-align:left !important; float:left; text-transform:uppercase; padding-left:0px !important;}
+.input, .select{
+	width:100%; padding:10px; height:40px;
+}
+.pad-0{padding:0px !important;}

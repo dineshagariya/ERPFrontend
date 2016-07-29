@@ -6,6 +6,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 </head>
 
 <body>
@@ -40,24 +41,20 @@
         
         <div class="col-lg-12" id="uploadForm" style="display:none">
         <hr />	
-		<form method="POST" enctype="multipart/form-data" action="http://10.11.19.19:9191/erp/upload" >
+		<form method="POST" enctype="multipart/form-data" action="http://10.11.19.19:9191/erp/upload">
 		File to upload: <input type="file" name="file"><br /> 
-		ProductType: <input type="text" name="productType"><br /> <br /> 
-		VendorCode: <input type="text" name="vendorCode"><br /> <br />
+		<input type="text" name="productType" id= "productType" hidden="true" />
+		<input type="text" name="vendorCode" id= "vendorCode"  hidden=""/>
 		<label for="chkReal">
-            <input type="radio" checked="checked" id="chkReal" name="chkImages" onclick="ShowHideDiv()" />
-                Real
+            <input type="radio" checked="checked" id="chkReal" name="chkImages" onclick="ShowHideDiv()" /> Real
         </label>
        	<label for="chkVirtual">
-            <input type="radio" id="chkVirtual" name="chkImages" onclick="ShowHideDiv()" />
-                Virtual
+            <input type="radio" id="chkVirtual" name="chkImages" onclick="ShowHideDiv()" /> Virtual
         </label>
-        
-        <div id="vendorURL" style="display: none">
-                URL:
-                <input type="text" id="txtPassportNumber"  name="url" />
+        <div id="vendorURL" style="display: none"> 
+        URL: <input type="text" id="txtPassportNumber"  name="url" />
         </div>
-        	<input type="submit" value="Upload">
+        <input type="submit" value="Upload" id="upload"/>
         	</form>
         </div>
     </div>
@@ -136,26 +133,18 @@ $(document).ready(function(){
 
 				document.body.appendChild(a);
 				a.click();
+				$('#productType').val(pt);
+				$('#vendorCode').val($.cookie("vendorCode"));
 				$('#uploadForm').toggle();
            	}
         });
 	})
 
-	// $("#fileUpload").click(function(){
-	// var pt = $("#producttype").val();
-	// var form = document.createElement("form");
- //    form.setAttribute("method", "POST");
- //    form.setAttribute("action","http://10.11.19.19:9191/erp/upload");
- //    form.setAttribute("enctype","multipart/file");
- //    form.setAttribute("productType","Women-Sarees");
- //    form.setAttribute("vendorCode","s0a2b2");
- //    form.setAttribute("url",$("#txtPassportNumber").val())
- //    form.setAttribute("file",$("#file").val());
- //    document.body.appendChild(form);
- //    form.submit();
-	// });
+		$("#upload").click(function(e){
+			e.preventDefault();
 
-
+			alert("upload");
+	})
 	
 });
 </script>

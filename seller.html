@@ -40,62 +40,43 @@
                 </select>
             </div>
         </div>
+   
         <div class="col-lg-12" id="uploadForm" style="display:none">
         <hr />	
-		<form method="POST" enctype="multipart/form-data" action="http://10.11.19.19:9191/erp/upload">
-		File to upload: <input type="file" name="file"><br /> 
+		<form method="POST" enctype="multipart/form-data" action="http://localhost:9191/erp/upload" id="formSeller">
 		<input type="text" name="productType" id= "productType" hidden="true" />
-		<input type="text" name="vendorCode" id= "vendorCode"  hidden=""/>
+		<input type="text" name="vendorCode" id= "vendorCode" hidden="true" />
+		<div class="col-lg-12 ">
 		<label for="chkReal">
             <input type="radio" checked="checked" id="chkReal" name="chkImages" onclick="ShowHideDiv()" /> Real
         </label>
        	<label for="chkVirtual">
             <input type="radio" id="chkVirtual" name="chkImages" onclick="ShowHideDiv()" /> Virtual
         </label>
-        <div id="vendorURL" style="display: none"> 
-        URL: <input type="text" id="txtPassportNumber"  name="url" />
         </div>
-        <input type="submit" value="Upload" id="upload"/>
-        	</form>
-        </div>
-    </div>
-</div>
-        <form method="POST" enctype="multipart/form-data" action="http://10.11.19.19:9191/erp/upload" >
-        <div id="uploadForm" style="display:none">
-                <hr />	
-
-            <div class="col-lg-12 pad-0">
-                <div class="col-lg-4">
-                    <label class="label">ProductType: </label>
-                    <input type="text" name="productType" class="input">	
-                </div>
-                <div class="col-lg-8">&nbsp;</div>
-            </div>		
-		<!--ProductType: <input type="text" name="productType"><br /> <br /> 
-		VendorCode: <input type="text" name="vendorCode"><br /> <br />-->
-            <div class="col-lg-12 ">
-                <label for="chkReal">
-                    <input type="radio" checked="checked" id="chkReal" name="chkImages" onclick="ShowHideDiv()" />
-                        Real
-                </label>
-                <label for="chkVirtual">
-                    <input type="radio" id="chkVirtual" name="chkImages" onclick="ShowHideDiv()" />
-                        Virtual
-                </label>
-            </div>	    
-            <div class="col-lg-12 pad-0">
+             <div class="col-lg-12 pad-0">
             	<div class="col-lg-4">
                     <div id="vendorURL" style="display: none">
                             <label class="label">URL:</label>
                             <input type="text" class="input" id="txtPassportNumber"  name="url" />
                     </div>
                     <br/>
-                    File to upload: <input type="file" name="file"><input type="submit" value="Upload">                
+                    <label class="label">Upload File</label>
+                    <input type="file" name="file" id="file">
+                    <br/>
+                    <input type="submit" value="Upload" id="upload">                
                 </div>
                 <div class="col-lg-8"></div>
-            </div>        
+            </div> 
+        	</form>
         </div>
-        </form>
+       <div  class="col-lg-12 pad-12" id="messageOuterBlock">
+       <hr />
+             <div class="col-lg-12" id="messageBlock"></div>
+       </div>
+
+    </div>
+</div>
 	</div>
 </div>
     
@@ -117,7 +98,7 @@ $(document).ready(function(){
 	$("#cat").change(function(){
 		var cat = $("#cat").val();
 		$.ajax({
-            url: 'http://10.11.19.19:9191/erp/getSubcat/'+cat,
+            url: 'http://localhost:9191/erp/getSubcat/'+cat,
             crossDomain: true,
             type: 'GET',
             success: function (data) {
@@ -131,6 +112,7 @@ $(document).ready(function(){
             	}
             	$( "#subcat" ).prop( "disabled", false );
             	$( "#producttype" ).prop( "disabled", true );
+            	$('#uploadForm').hide();
 
            	}
         });
@@ -140,7 +122,7 @@ $(document).ready(function(){
 		var cat = $("#cat").val();
 		var subcat = $("#subcat").val();
 		$.ajax({
-            url: 'http://10.11.19.19:9191/erp/getProductType/'+cat+'/'+subcat,
+            url: 'http://localhost:9191/erp/getProductType/'+cat+'/'+subcat,
             crossDomain: true,
             type: 'GET',
             success: function (data) {
@@ -160,7 +142,7 @@ $(document).ready(function(){
 	$("#producttype").change(function(){
 		var pt = $("#producttype").val();
 		$.ajax({
-            url: 'http://10.11.19.19:9191/erp/getUploadFormat/'+pt,
+            url: 'http://localhost:9191/erp/getUploadFormat/'+pt,
             crossDomain: true,
             type: 'GET',
             success: function (data) {
@@ -175,15 +157,49 @@ $(document).ready(function(){
 				a.click();
 				$('#productType').val(pt);
 				$('#vendorCode').val($.cookie("vendorCode"));
-				$('#uploadForm').toggle();
+				$('#uploadForm').show();
            	}
         });
 	})
 
 		$("#upload").click(function(e){
+			console.log("in upload");
 			e.preventDefault();
+			var fileName = $("#file").val() ;
+			if(fileName.length>0 && fileName.split(".")[fileName.split(".").length-1].toLowerCase() == 'csv')
+			{
+           var formdata = new FormData(document.getElementById("formSeller"));
+           console.log(formdata.get("vendorCode"));
+			$.ajax
+            ({
+                url: 'http://localhost:9191/erp/upload',
+                crossDomain: true,
+                type: 'POST',
+                enctype:"multipart/form-data",
+                data : formdata,
+                processData: false,  
+                contentType: false,
+                success: function (data) 
+                {
+                  if(data["code"]==201)
+                  {
+                    $("#messageBlock").append("<label style='color:green'>Accepted Count:</label><span class='badge'>"+data['value']['Accepted Count']+"</span><br/>");
+                    if(data["value"]["Rejected List"].length>0)
+                    {
+                        for(var item of data["value"]["Rejected List"])
+                        {
+                            console.log(item);
+                            $("#messageBlock").append("<label style='color:red'>Error at Row: "+item['row']+",reason:"+item['reason']+"</label><br/>");
+                        }
+                    }
+                  }
+           	    },
+               error: function ( xhr, status, error){
 
-			alert("upload");
+                }
+
+        	});
+			}
 	})
 	
 });

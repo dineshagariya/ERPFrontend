@@ -43,7 +43,7 @@
    
         <div class="col-lg-12" id="uploadForm" style="display:none">
         <hr />	
-		<form method="POST" enctype="multipart/form-data" action="http://localhost:9191/erp/upload" id="formSeller">
+		<form method="POST" enctype="multipart/form-data" action="http://10.11.19.19:9191/erp/upload" id="formSeller">
 		<input type="text" name="productType" id= "productType" hidden="true" />
 		<input type="text" name="vendorCode" id= "vendorCode" hidden="true" />
 		<div class="col-lg-12 ">
@@ -98,7 +98,7 @@ $(document).ready(function(){
 	$("#cat").change(function(){
 		var cat = $("#cat").val();
 		$.ajax({
-            url: 'http://localhost:9191/erp/getSubcat/'+cat,
+            url: 'http://10.11.19.19:9191/erp/getSubcat/'+cat,
             crossDomain: true,
             type: 'GET',
             success: function (data) {
@@ -122,7 +122,7 @@ $(document).ready(function(){
 		var cat = $("#cat").val();
 		var subcat = $("#subcat").val();
 		$.ajax({
-            url: 'http://localhost:9191/erp/getProductType/'+cat+'/'+subcat,
+            url: 'http://10.11.19.19:9191/erp/getProductType/'+cat+'/'+subcat,
             crossDomain: true,
             type: 'GET',
             success: function (data) {
@@ -142,7 +142,7 @@ $(document).ready(function(){
 	$("#producttype").change(function(){
 		var pt = $("#producttype").val();
 		$.ajax({
-            url: 'http://localhost:9191/erp/getUploadFormat/'+pt,
+            url: 'http://10.11.19.19:9191/erp/getUploadFormat/'+pt,
             crossDomain: true,
             type: 'GET',
             success: function (data) {
@@ -172,7 +172,7 @@ $(document).ready(function(){
            console.log(formdata.get("vendorCode"));
 			$.ajax
             ({
-                url: 'http://localhost:9191/erp/upload',
+                url: 'http://10.11.19.19:9191/erp/upload',
                 crossDomain: true,
                 type: 'POST',
                 enctype:"multipart/form-data",
